@@ -38,14 +38,8 @@
 		} else {
 			$status1 = "Same price";
 			$status2 = "Same price";
-		}
+		}	
 		
-		
-
-		function x(){
-			$status1= "asdf";
-		}
-		x();
 	?>
 	
 
