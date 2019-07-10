@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>Compare Price</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </head>
@@ -11,7 +12,7 @@
 		// define variables and set to empty values
 		$amount1 = $price1 = $amount2 = $price2 = "";
 		$amountPerBaht1 = $amountPerBath2 = 0;
-		$status1 = $status2 = "";
+		$status1 = $status2 = "Please Enter Valid Number";
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			$amount1 = test_input($_POST["amount1"]);
@@ -35,7 +36,7 @@
 		} elseif ($amountPerBaht1 < $amountPerBaht2) {
 			$status1 = "EXPENSIVE";
 			$status2 = "CHEAP";
-		} else {
+		} elseif ($amountPerBaht1 == $amountPerBaht2) {
 			$status1 = "Same price";
 			$status2 = "Same price";
 		}	
@@ -46,41 +47,63 @@
 
 
 	<div>
-		<h1 class="ml-3">Compare Items Prices</h1>
+		<h2 class="mt-3 ml-3">Compare Items Prices</h2>
 	</div>
 	<div>
 		<form class="form-group ml-3 mr-3">
 			<div class="form-group">
-				<label><h3>ITEM 1</h3></label>
+				<label><h4>ITEM 1</h4></label>
 				<div>
+					
 					<div class="input-group mb-2">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text">Amount : </span>
+					    <span class="input-group-text" style="	<?php 
+					  												if ($status1=="CHEAP") {
+					  													echo "background-color: palegreen; font-weight: bold;";
+					  												} elseif ($status1=="EXPENSIVE") {
+					  													echo "background-color: mistyrose; font-weight: bold;";
+					  												} elseif ($status1=="Same price") {
+					  													echo "background-color: lemonchiffon; font-weight: bold;";
+					  												}
+					  												
+					  											?>">
+					    	<?php echo $status1; ?>
+					    </span>
 					  </div>
-					  <input type="text" name="amount1" class="form-control" placeholder="Amount" aria-label="Amount">
 					</div>
-					<div class="input-group mb-3">
+
+					<div class="input-group mb-5">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text">Price : </span>
+					    <span class="input-group-text">Amount per 1฿ : &nbsp <b><?php echo round($amountPerBaht1,2); ?></b></span>
 					  </div>
-					  <input type="text" name="price1" class="form-control" placeholder="<?php echo $status1; ?>" aria-label="Price">
 					</div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label><h3>ITEM 2</h3></label>
+				<label><h4>ITEM 2</h4></label>
 				<div>
+					
 					<div class="input-group mb-2">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text">Amount : </span>
+					    <span class="input-group-text" style="	<?php 
+					  												if ($status2=="CHEAP") {
+					  													echo "background-color: palegreen; font-weight: bold;";
+					  												} elseif ($status2=="EXPENSIVE") {
+					  													echo "background-color: mistyrose; font-weight: bold;";
+					  												} elseif ($status2=="Same price") {
+					  													echo "background-color: lemonchiffon; font-weight: bold;";
+					  												}
+					  												
+					  											?>">
+					    	<?php echo $status2; ?>
+					    </span>
 					  </div>
-					  <input type="text" name="amount2" class="form-control" placeholder="Amount" aria-label="Amount">
 					</div>
-					<div class="input-group mb-3">
+
+					<div class="input-group mb-5">
 					  <div class="input-group-prepend">
-					    <span class="input-group-text">Price : </span>
+					    <span class="input-group-text">Amount per 1฿ :  &nbsp <b><?php echo round($amountPerBaht2,2); ?></b></span>
 					  </div>
-					  <input type="text" name="price2" class="form-control" placeholder="<?php echo $status2; ?>" aria-label="Price">
 					</div>
 				</div>
 			</div>
